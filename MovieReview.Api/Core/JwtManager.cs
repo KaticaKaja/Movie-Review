@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MovieReview.Application.DataTransfer;
 using MovieReview.EfDataAccess;
+using MovieReview.Implementation.Common;
+using MovieReview.Implementation.Validators;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,18 +19,27 @@ namespace MovieReview.Api.Core
     public class JwtManager
     {
         private readonly MovieReviewContext _context;
-
-        public JwtManager(MovieReviewContext context)
+        private readonly TokenValidator _validator;
+        public JwtManager(MovieReviewContext context, TokenValidator validator)
         {
             _context = context;
+            _validator = validator;
+
         }
 
-        public string MakeToken(string username, string password)
+        public string MakeToken(LoginRequestDto request)
         {
-            var user = _context.Users.Include(u => u.UserUseCases)
-                .FirstOrDefault(x => x.Username == username && x.Password == password);
+            _validator.ValidateAndThrow(request);
+            var username = request.Username;
+            var password = request.Password;
 
-            if (user == null)
+
+            var user = _context.Users.Include(u => u.UserUseCases)
+                .FirstOrDefault(x => x.Username == username);
+            var hashedPassword = user.Password;
+            var decryptedPassword = CommonMethods.ConvertToDecrypt(hashedPassword);
+
+            if (decryptedPassword != password || user == null)
             {
                 return null;
             }
@@ -59,7 +72,7 @@ namespace MovieReview.Api.Core
                 audience: "Any",
                 claims: claims,
                 notBefore: now,
-                expires: now.AddSeconds(30),
+                expires: now.AddHours(6),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

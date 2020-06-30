@@ -4,8 +4,9 @@ using System.Text;
 
 namespace MovieReview.Domain
 {
-    public class UserUseCase : Entity
+    public class UserUseCase
     {
+        public int Id { get; set; }
         public int UseCaseId { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }

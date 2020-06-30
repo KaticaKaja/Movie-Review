@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieReview.EfDataAccess;
 
 namespace MovieReview.EfDataAccess.Migrations
 {
     [DbContext(typeof(MovieReviewContext))]
-    partial class MovieReviewContextModelSnapshot : ModelSnapshot
+    [Migration("20200630123416_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace MovieReview.EfDataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ActorId")
+                    b.Property<int?>("ActorId")
                         .HasColumnType("int");
 
                     b.Property<string>("CharacterName")
@@ -83,7 +85,7 @@ namespace MovieReview.EfDataAccess.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -220,19 +222,10 @@ namespace MovieReview.EfDataAccess.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieRating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -310,15 +303,11 @@ namespace MovieReview.EfDataAccess.Migrations
                 {
                     b.HasOne("MovieReview.Domain.Actor", "Actor")
                         .WithMany("ActorMovies")
-                        .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ActorId");
 
                     b.HasOne("MovieReview.Domain.Movie", "Movie")
                         .WithMany("MovieActors")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
                 });
 
             modelBuilder.Entity("MovieReview.Domain.MovieGenre", b =>
@@ -340,20 +329,16 @@ namespace MovieReview.EfDataAccess.Migrations
                 {
                     b.HasOne("MovieReview.Domain.Movie", "Movie")
                         .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
 
                     b.HasOne("MovieReview.Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MovieReview.Domain.UserUseCase", b =>
                 {
-                    b.HasOne("MovieReview.Domain.User", "User")
+                    b.HasOne("MovieReview.Domain.User", null)
                         .WithMany("UserUseCases")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

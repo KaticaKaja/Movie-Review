@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieReview.Application;
-using MovieReview.Application.CommandDto;
+using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Commands;
+using MovieReview.Application.QueryDto;
+using MovieReview.Application.Queries;
+using MovieReview.EfDataAccess;
 
 namespace MovieReview.Api.Controllers
 {
@@ -27,37 +30,44 @@ namespace MovieReview.Api.Controllers
         // GET: api/Users
         [HttpGet]
         [Authorize]
-        public IEnumerable<string> Get() // samo admin
+        public IActionResult Get([FromQuery] UserSearch search,
+            [FromServices] IGetUsersQuery query) // samo admin
         {
-            return new string[] { "value1", "value2" };
+            return Ok(executor.ExecuteQuery(query, search));
         }
 
-        [Authorize]
+
         // GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")] // admin i taj user
-        public string Get(int id)
+        [Authorize]
+        [HttpGet("{id}", Name = "GetUser")] // admin i taj user
+        public IActionResult Get(int id, [FromServices] IGetOneUserQuery query)
         {
-            return "value";
+            return Ok(executor.ExecuteQuery(query, id));
         }
 
         // POST: api/Users
         [HttpPost]
-        public void Post([FromBody] UserDto dto, [FromServices] IAddUser command) // svi [register]
+        public IActionResult Post([FromBody] UserDto dto, [FromServices] IAddUser command) // svi [register]
         {
             executor.ExecuteCommand(command, dto);
+            return StatusCode(StatusCodes.Status201Created);
         }
 
         [Authorize]
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value) // admin, eventualno taj user
+        public IActionResult Put(int id, [FromBody] UserDto dto, [FromServices] IUpdateUser command)
         {
+            dto.Id = id;
+            executor.ExecuteCommand(command, dto);
+            return StatusCode(StatusCodes.Status204NoContent);
         }
         [Authorize]
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id) // admin
+        public IActionResult Delete(int id)
         {
+            return Ok();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using MovieReview.Application.CommandDto;
+using MovieReview.Application.DataTransfer;
+using MovieReview.Application.QueryDto;
 using MovieReview.Domain;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,23 @@ namespace MovieReview.Implementation.Profiles
     {
         public UserProfile()
         {
-            //from          //to
-            CreateMap<UserDto, User>()
-                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uuc => new UserUseCaseDto
+            CreateMap<User, UserDto>()
+                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uuc => new UserUseCase
                 {
+                    Id = uuc.Id,
                     UseCaseId = uuc.UseCaseId,
                     UserId = uuc.UserId
                 })));
+
+            CreateMap<UserDto, User>()
+                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uuc => new UserUseCaseDto
+                {
+                    Id = uuc.Id,
+                    UseCaseId = uuc.UseCaseId,
+                    UserId = uuc.UserId
+                })));
+            //CreateMap<User, UserSearch>()
+            //    .ForMember(us => us.FirstLastUserName, opt => opt.MapFrom(u => u.FirstName + u.LastName + u.Username));
         }
     }
 }

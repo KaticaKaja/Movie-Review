@@ -1,44 +1,44 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Commands;
+using MovieReview.Application.DataTransfer;
 using MovieReview.Domain;
 using MovieReview.EfDataAccess;
 using MovieReview.Implementation.Common;
 using MovieReview.Implementation.Validators;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace MovieReview.Implementation.Commands
 {
-    public class EfAddUser : IAddUser
+    public class EfUpdateUser : IUpdateUser
     {
         private readonly MovieReviewContext context;
         private readonly IMapper mapper;
-        private readonly AddUserValidator validator;
-        public EfAddUser(MovieReviewContext context, IMapper mapper, AddUserValidator validator)
+        private readonly UpdateUserValidator validator;
+        public EfUpdateUser(MovieReviewContext context, IMapper mapper, UpdateUserValidator validator)
         {
             this.context = context;
             this.mapper = mapper;
             this.validator = validator;
         }
+        public int Id => 4;
 
-        public int Id => 1;
+        public string Name => "Update User";
 
-        public string Name => "Add User using Ef";
-
-        public void Execute(UserDto request)
+        public void Execute(UserDto dto)
         {
-            request.Password = CommonMethods.ConvertToEncrypt(request.Password);
+            var userFromDb = context.Users.Find(dto.Id);
 
-            var user = mapper.Map<User>(request);
+            userFromDb.Password = CommonMethods.ConvertToEncrypt(userFromDb.Password);
 
-            validator.ValidateAndThrow(request);
+            mapper.Map(dto,userFromDb);
 
-            context.Users.Add(user);
+            validator.ValidateAndThrow(dto);
+
             context.SaveChanges();
         }
+
     }
 }

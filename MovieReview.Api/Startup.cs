@@ -19,6 +19,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using MovieReview.Application.Commands;
+using MovieReview.Implementation.Commands;
+using MovieReview.Application.Queries;
+using MovieReview.Implementation.Queries;
 
 namespace MovieReview.Api
 {
@@ -34,11 +38,16 @@ namespace MovieReview.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(this.GetType().Assembly);
+            services.AddAutoMapper(typeof(EfAddUser).Assembly);
             services.AddTransient<AddUserValidator>();
+            services.AddTransient<UpdateUserValidator>();
+            services.AddTransient<TokenValidator>();
             services.AddTransient<MovieReviewContext>();
-            services.AddTransient<UseCaseExecutor>();
-
+            services.AddTransient<IAddUser, EfAddUser>();
+            services.AddTransient<IUpdateUser, EfUpdateUser>();
+            services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
+            services.AddTransient<IGetOneUserQuery, EfGetOneUserQuery>();
+            services.AddHttpContextAccessor();
             services.AddTransient<IApplicationActor>(x =>
             {
                 var accessor = x.GetService<IHttpContextAccessor>();
@@ -51,7 +60,16 @@ namespace MovieReview.Api
 
                 if (user.FindFirst("ActorData") == null)
                 {
-                    throw new InvalidOperationException("Actor data doesnt exist in token.");
+                    var anonymous = new JwtActor
+                    {
+                         Id = 5,
+                         Identity = "Anonymouse Actor",
+                         AllowedUseCases = new List<int> { 1 }
+
+                    };
+
+                    return anonymous;
+                    //throw new InvalidOperationException("Actor data doesnt exist in token.");
                 }
 
                 var actorString = user.FindFirst("ActorData").Value;
@@ -61,8 +79,8 @@ namespace MovieReview.Api
                 return actor;
 
             });
-
-
+            
+            services.AddTransient<UseCaseExecutor>();
             services.AddTransient<JwtManager>();
 
             services.AddAuthentication(options =>

@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieReview.Application.Commands
+namespace MovieReview.Application.Queries
 {
-    public interface IAddUser : ICommand<UserDto>
+    public interface IGetOneUserQuery : IQuery<int, UserDto>
     {
-
     }
 }

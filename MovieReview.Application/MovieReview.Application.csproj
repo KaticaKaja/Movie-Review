@@ -12,9 +12,4 @@
     <ProjectReference Include="..\MovieReview.Domain\MovieReview.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\" />
-    <Folder Include="QueryDto\" />
-  </ItemGroup>
-
 </Project>

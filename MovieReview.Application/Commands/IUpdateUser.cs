@@ -5,8 +5,7 @@ using System.Text;
 
 namespace MovieReview.Application.Commands
 {
-    public interface IAddUser : ICommand<UserDto>
+    public interface IUpdateUser : ICommand<UserDto>
     {
-
     }
 }

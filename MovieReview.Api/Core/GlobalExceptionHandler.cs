@@ -28,7 +28,10 @@ namespace MovieReview.Api.Core
             {
                 //presreli smo izuzetak i podesavamo sve sto je vec podeseno kad se desi izuzetak
                 httpContext.Response.ContentType = "application/json";
-                object response = null;
+                object response = new
+                {
+                    message = "Internal error, go to the logs to find out what the hell happened."
+                };
                 var statusCode = StatusCodes.Status500InternalServerError;
 
                 switch (ex)

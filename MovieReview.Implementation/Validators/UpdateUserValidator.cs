@@ -8,9 +8,9 @@ using System.Text;
 
 namespace MovieReview.Implementation.Validators
 {
-    public class AddUserValidator : AbstractValidator<UserDto>
+    public class UpdateUserValidator : AbstractValidator<UserDto>
     {
-        public AddUserValidator(MovieReviewContext context)
+        public UpdateUserValidator(MovieReviewContext context)
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty();
@@ -19,7 +19,7 @@ namespace MovieReview.Implementation.Validators
             RuleFor(x => x.Username)
                 .NotEmpty()
                 .MinimumLength(4)
-                .Must(x => !context.Users.Any(user => user.Username == x))
+                .Must((dto, username) => !context.Users.Any(user => user.Username == username && user.Id != dto.Id))
                 .WithMessage("Username is already taken.");
             RuleFor(x => x.Email)
                 .NotEmpty()

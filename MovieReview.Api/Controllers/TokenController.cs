@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieReview.Api.Core;
+using MovieReview.Application.DataTransfer;
 
 namespace MovieReview.Api.Controllers
 {
@@ -22,9 +23,9 @@ namespace MovieReview.Api.Controllers
 
         // POST api/<TokenController>
         [HttpPost]
-        public IActionResult Post([FromBody] LoginRequest request)
+        public IActionResult Post([FromBody] LoginRequestDto request)
         {
-            var token = manager.MakeToken(request.Username, request.Password);
+            var token = manager.MakeToken(request);
 
             if (token == null)
             {
@@ -32,12 +33,6 @@ namespace MovieReview.Api.Controllers
             }
 
             return Ok(new { token });
-        }
-
-        public class LoginRequest
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
         }
     
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieReview.Application.CommandDto
+namespace MovieReview.Application.DataTransfer
 {
     public class UserDto
     {

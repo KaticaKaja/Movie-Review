@@ -39,20 +39,41 @@ namespace MovieReview.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(EfAddUser).Assembly);
+            services.AddTransient<MovieReviewContext>();
+            services.AddTransient<UseCaseExecutor>();
+
+            #region Validators
             services.AddTransient<AddUserValidator>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<TokenValidator>();
-            services.AddTransient<MovieValidator>();
-            services.AddTransient<MovieReviewContext>();
+            services.AddTransient<MovieValidator>(); 
+            #endregion
+
+            #region User
             services.AddTransient<IAddUser, EfAddUser>();
             services.AddTransient<IUpdateUser, EfUpdateUser>();
             services.AddTransient<IDeleteUser, EfDeleteUser>();
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IGetOneUserQuery, EfGetOneUserQuery>();
-            services.AddTransient<IGetOneMovieQuery, EfGetOneMovieQuery>();
-            services.AddTransient<IGetMoviesQuery, EfGetMoviesQuery>();
+            #endregion
+
+            #region Review
+            services.AddTransient<IAddReview, EfAddReview>();
+            services.AddTransient<IUpdateReview, EfUpdateReview>();
+            services.AddTransient<IDeleteReview, EfDeleteReview>();
+            services.AddTransient<IGetReviewsQuery, EfGetReviewsQuery>();
+            services.AddTransient<IGetOneReviewQuery, EfGetOneReviewQuery>();
+            #endregion
+
+            #region Movie
             services.AddTransient<IAddMovie, EfAddMovie>();
             services.AddTransient<IUpdateMovie, EfUpdateMovie>();
+            services.AddTransient<IDeleteMovie, EfDeleteMovie>();
+            services.AddTransient<IGetOneMovieQuery, EfGetOneMovieQuery>();
+            services.AddTransient<IGetMoviesQuery, EfGetMoviesQuery>();
+            #endregion
+
+            #region Actor
             services.AddHttpContextAccessor();
             services.AddTransient<IApplicationActor>(x =>
             {
@@ -68,14 +89,14 @@ namespace MovieReview.Api
                 {
                     var anonymous = new JwtActor
                     {
-                         Id = 5,
-                         Identity = "Anonymouse Actor",
-                         AllowedUseCases = new List<int> { 1 }
+                        Id = 5,
+                        Identity = "Anonymouse Actor",
+                        AllowedUseCases = new List<int> { 1 }
 
                     };
 
                     return anonymous;
-                    
+
                 }
 
                 var actorString = user.FindFirst("ActorData").Value;
@@ -84,9 +105,10 @@ namespace MovieReview.Api
 
                 return actor;
 
-            });
+            }); 
+            #endregion
             
-            services.AddTransient<UseCaseExecutor>();
+            #region JWT
             services.AddTransient<JwtManager>();
 
             services.AddAuthentication(options =>
@@ -109,7 +131,9 @@ namespace MovieReview.Api
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
-            });
+            }); 
+            #endregion
+
             services.AddControllers();
         }
 

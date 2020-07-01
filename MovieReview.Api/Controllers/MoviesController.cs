@@ -28,7 +28,7 @@ namespace MovieReview.Api.Controllers
         // GET: api/Movies
         [HttpGet]
         public IActionResult Get([FromQuery] MovieSearch search,
-            [FromServices] IGetMoviesQuery query) // samo admin
+            [FromServices] IGetMoviesQuery query)
         {
             return Ok(executor.ExecuteQuery(query, search));
         }
@@ -43,7 +43,7 @@ namespace MovieReview.Api.Controllers
         // POST: api/Movies
         [HttpPost]
         [Authorize]
-        public IActionResult Post([FromBody] MovieDto dto, [FromServices] IAddMovie command) // svi [register]
+        public IActionResult Post([FromBody] MovieDto dto, [FromServices] IAddMovie command)
         {
             executor.ExecuteCommand(command, dto);
             return StatusCode(StatusCodes.Status201Created);

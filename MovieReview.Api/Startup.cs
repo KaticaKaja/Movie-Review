@@ -42,11 +42,17 @@ namespace MovieReview.Api
             services.AddTransient<AddUserValidator>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<TokenValidator>();
+            services.AddTransient<MovieValidator>();
             services.AddTransient<MovieReviewContext>();
             services.AddTransient<IAddUser, EfAddUser>();
             services.AddTransient<IUpdateUser, EfUpdateUser>();
+            services.AddTransient<IDeleteUser, EfDeleteUser>();
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IGetOneUserQuery, EfGetOneUserQuery>();
+            services.AddTransient<IGetOneMovieQuery, EfGetOneMovieQuery>();
+            services.AddTransient<IGetMoviesQuery, EfGetMoviesQuery>();
+            services.AddTransient<IAddMovie, EfAddMovie>();
+            services.AddTransient<IUpdateMovie, EfUpdateMovie>();
             services.AddHttpContextAccessor();
             services.AddTransient<IApplicationActor>(x =>
             {
@@ -69,7 +75,7 @@ namespace MovieReview.Api
                     };
 
                     return anonymous;
-                    //throw new InvalidOperationException("Actor data doesnt exist in token.");
+                    
                 }
 
                 var actorString = user.FindFirst("ActorData").Value;

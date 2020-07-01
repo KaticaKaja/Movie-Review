@@ -36,10 +36,15 @@ namespace MovieReview.Api.Core
 
             var user = _context.Users.Include(u => u.UserUseCases)
                 .FirstOrDefault(x => x.Username == username);
+            
+            if (user == null)
+                return null;
+
             var hashedPassword = user.Password;
+            
             var decryptedPassword = CommonMethods.ConvertToDecrypt(hashedPassword);
 
-            if (decryptedPassword != password || user == null)
+            if (decryptedPassword != password)
             {
                 return null;
             }

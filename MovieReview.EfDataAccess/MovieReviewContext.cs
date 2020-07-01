@@ -11,6 +11,10 @@ namespace MovieReview.EfDataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // konfiguracije, zabrana prikazivanja obrisanih entiteta
+
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+            //modelBuilder.Entity<>().HasQueryFilter(p => !p.IsDeleted);
+            //modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

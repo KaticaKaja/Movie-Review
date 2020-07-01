@@ -8,30 +8,29 @@ using System.Text;
 
 namespace MovieReview.Implementation.Commands
 {
-    public class EfDeleteUser : IDeleteUser
+    public class EfDeleteMovie : IDeleteMovie
     {
         private readonly MovieReviewContext context;
 
-        public EfDeleteUser(MovieReviewContext context)
+        public EfDeleteMovie(MovieReviewContext context)
         {
             this.context = context;
         }
+        public int Id => 10;
 
-        public int Id => 5;
-
-        public string Name => "Delete User";
+        public string Name => "Delete Movie";
 
         public void Execute(int id)
         {
-            var user = context.Users.Find(id);
+            var movie = context.Movies.Find(id);
 
-            if (user == null)
+            if (movie == null)
             {
-                throw new EntityNotFoundException(id, typeof(User));
+                throw new EntityNotFoundException(id, typeof(Movie));
             }
 
             //context.Users.Remove(user);
-            user.IsDeleted = true;
+            movie.IsDeleted = true;
             context.SaveChanges();
         }
     }

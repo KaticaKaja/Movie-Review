@@ -14,7 +14,7 @@ namespace MovieReview.Implementation.Profiles
         public UserProfile()
         {
             CreateMap<User, UserDto>()
-                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uuc => new UserUseCase
+                .ForMember(dto => dto.UserUseCases, opt => opt.MapFrom(u => u.UserUseCases.Select(uuc => new UserUseCase
                 {
                     Id = uuc.Id,
                     UseCaseId = uuc.UseCaseId,
@@ -22,11 +22,11 @@ namespace MovieReview.Implementation.Profiles
                 })));
 
             CreateMap<UserDto, User>()
-                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uuc => new UserUseCaseDto
+                .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uucdto => new UserUseCaseDto
                 {
-                    Id = uuc.Id,
-                    UseCaseId = uuc.UseCaseId,
-                    UserId = uuc.UserId
+                    Id = uucdto.Id,
+                    UseCaseId = uucdto.UseCaseId,
+                    UserId = uucdto.UserId
                 })));
             //CreateMap<User, UserSearch>()
             //    .ForMember(us => us.FirstLastUserName, opt => opt.MapFrom(u => u.FirstName + u.LastName + u.Username));

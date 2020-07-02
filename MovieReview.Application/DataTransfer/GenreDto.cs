@@ -8,6 +8,6 @@ namespace MovieReview.Application.DataTransfer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<MovieGenreDto> GenreMovies { get; set; } = new List<MovieGenreDto>();
+        //public IEnumerable<MovieGenreDto> GenreMovies { get; set; } = new List<MovieGenreDto>();
     }
 }

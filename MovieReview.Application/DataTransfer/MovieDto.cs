@@ -10,7 +10,7 @@ namespace MovieReview.Application.DataTransfer
         public string Title { get; set; }
         public int Year { get; set; }
         public int Duration { get; set; }
-        public virtual ICollection<ActorMovieDto> MovieActors { get; set; } = new List<ActorMovieDto>();
-        public virtual ICollection<MovieGenreDto> MovieGenres { get; set; } = new List<MovieGenreDto>();
+        public IEnumerable<ActorMovieDto> MovieActors { get; set; } = new List<ActorMovieDto>();
+        public IEnumerable<MovieGenreDto> MovieGenres { get; set; } = new List<MovieGenreDto>();
     }
 }

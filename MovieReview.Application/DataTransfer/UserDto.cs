@@ -12,6 +12,6 @@ namespace MovieReview.Application.DataTransfer
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public virtual ICollection<UserUseCaseDto> UserUseCases { get; set; } = new List<UserUseCaseDto>();
+        public IEnumerable<UserUseCaseDto> UserUseCases { get; set; } = new List<UserUseCaseDto>();
     }
 }

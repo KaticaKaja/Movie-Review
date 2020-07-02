@@ -4,10 +4,11 @@ using System.Text;
 
 namespace MovieReview.Application.DataTransfer
 {
-    public class GenreDto
+    public class ActorDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<MovieGenreDto> GenreMovies { get; set; } = new List<MovieGenreDto>();
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string ShortBio { get; set; }
     }
 }

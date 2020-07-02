@@ -7,6 +7,7 @@ using MovieReview.EfDataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace MovieReview.Implementation.Queries
@@ -42,7 +43,16 @@ namespace MovieReview.Implementation.Queries
             {
                 query = query.Where(x => x.Duration == search.Duration);
             }
-           
+            if (!string.IsNullOrEmpty(search.Actor) || !string.IsNullOrWhiteSpace(search.Actor))
+            {
+                query = query.Where(x => x.MovieActors.Any(ma => (ma.Actor.FirstName + ma.Actor.LastName).ToLower().Contains(search.Actor.ToLower())));
+            }
+            if (!string.IsNullOrEmpty(search.Genre) || !string.IsNullOrWhiteSpace(search.Genre))
+            {
+                query = query.Where(x => x.MovieGenres.Any(mg => (mg.Genre.Name).ToLower().Contains(search.Genre.ToLower())));
+            }
+            query.Include("ActorMovies");
+            query.Include("MovieGenres");
             var skipCount = search.PerPage * (search.Page - 1);
 
             var reponse = new PagedResponse<MovieDto>

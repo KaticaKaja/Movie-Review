@@ -38,7 +38,7 @@ namespace MovieReview.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(EfAddUser).Assembly);
+            services.AddAutoMapper(typeof(EfAddMovie).Assembly);
             services.AddTransient<MovieReviewContext>();
             services.AddTransient<UseCaseExecutor>();
 

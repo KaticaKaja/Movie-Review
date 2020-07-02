@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieReview.EfDataAccess;
 
 namespace MovieReview.EfDataAccess.Migrations
 {
     [DbContext(typeof(MovieReviewContext))]
-    partial class MovieReviewContextModelSnapshot : ModelSnapshot
+    [Migration("20200702114459_actor conf")]
+    partial class actorconf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +35,7 @@ namespace MovieReview.EfDataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -43,8 +44,7 @@ namespace MovieReview.EfDataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
@@ -53,12 +53,6 @@ namespace MovieReview.EfDataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FirstName")
-                        .IsUnique();
-
-                    b.HasIndex("LastName")
-                        .IsUnique();
 
                     b.ToTable("Actors");
                 });
@@ -96,7 +90,7 @@ namespace MovieReview.EfDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("ActorId", "MovieId");
+                    b.HasIndex("ActorId");
 
                     b.HasIndex("MovieId");
 
@@ -255,7 +249,7 @@ namespace MovieReview.EfDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("MovieId", "UserId");
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("UserId");
 

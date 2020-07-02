@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieReview.EfDataAccess;
 
 namespace MovieReview.EfDataAccess.Migrations
 {
     [DbContext(typeof(MovieReviewContext))]
-    partial class MovieReviewContextModelSnapshot : ModelSnapshot
+    [Migration("20200702114720_actor conf2")]
+    partial class actorconf2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +98,7 @@ namespace MovieReview.EfDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("ActorId", "MovieId");
+                    b.HasIndex("ActorId");
 
                     b.HasIndex("MovieId");
 
@@ -255,7 +257,7 @@ namespace MovieReview.EfDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("MovieId", "UserId");
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("UserId");
 

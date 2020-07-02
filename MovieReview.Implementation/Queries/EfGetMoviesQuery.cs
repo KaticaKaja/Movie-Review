@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Queries;
 using MovieReview.Application.QueryDto;

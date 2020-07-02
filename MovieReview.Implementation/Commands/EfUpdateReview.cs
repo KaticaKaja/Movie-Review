@@ -37,5 +37,5 @@ namespace MovieReview.Implementation.Commands
             context.SaveChanges();
         }
     }
-    }
 }
+

@@ -43,6 +43,7 @@ namespace MovieReview.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ReviewDto dto, [FromServices] IAddReview command)
         {
+            dto.UserId = actor.Id;
             executor.ExecuteCommand(command, dto);
             return StatusCode(StatusCodes.Status201Created);
         }
@@ -51,7 +52,7 @@ namespace MovieReview.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ReviewDto dto, [FromServices] IUpdateReview command)
         {
-            dto.Id = id;
+            dto.Id = id; //prepise se review id
             executor.ExecuteCommand(command, dto);
             return StatusCode(StatusCodes.Status204NoContent);
         }

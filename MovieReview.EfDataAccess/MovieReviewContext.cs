@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieReview.Domain;
+using MovieReview.EfDataAccess.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,10 +12,18 @@ namespace MovieReview.EfDataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // konfiguracije, zabrana prikazivanja obrisanih entiteta
+            modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieGenreConfiguration());
+            modelBuilder.ApplyConfiguration(new ActorConfiguration());
+            modelBuilder.ApplyConfiguration(new ActorMovieConfiguration());
 
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
-            //modelBuilder.Entity<>().HasQueryFilter(p => !p.IsDeleted);
-            //modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<Movie>().HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Review>().HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Genre>().HasQueryFilter(u => !u.IsDeleted);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

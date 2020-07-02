@@ -3,6 +3,7 @@ using MovieReview.Application.DataTransfer;
 using MovieReview.EfDataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MovieReview.Implementation.Validators
@@ -20,6 +21,9 @@ namespace MovieReview.Implementation.Validators
             RuleFor(x => x.MovieRating)
                 .InclusiveBetween(1, 5)
                 .WithMessage("Rate between 1 and 5");
+            RuleFor(x => x.MovieId)
+                .Must(x => context.Movies.Any(m => m.Id == x))
+                .WithMessage("No such movie in the database");
         }
     }
 }

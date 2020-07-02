@@ -40,6 +40,15 @@ namespace MovieReview.Implementation.Queries
                 query = query.Where(x => x.Text.ToLower().Contains(search.Text.ToLower()));
             }
 
+            if (!string.IsNullOrEmpty(search.MovieTitle) || !string.IsNullOrWhiteSpace(search.MovieTitle))
+            {
+                query = query.Where(x => x.Movie.Title.ToLower().Contains(search.MovieTitle.ToLower()));
+            }
+            if(!string.IsNullOrEmpty(search.Username) || !string.IsNullOrWhiteSpace(search.Username))
+            {
+                query = query.Where(x => x.User.Username.ToLower().Contains(search.Username.ToLower()));
+            }
+           
             if (search.MovieRating > 0 && search.MovieRating < 6)
                 
             {

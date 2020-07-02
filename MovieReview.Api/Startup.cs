@@ -46,7 +46,8 @@ namespace MovieReview.Api
             services.AddTransient<AddUserValidator>();
             services.AddTransient<UpdateUserValidator>();
             services.AddTransient<TokenValidator>();
-            services.AddTransient<MovieValidator>(); 
+            services.AddTransient<MovieValidator>();
+            services.AddTransient<ReviewValidator>();
             #endregion
 
             #region User
@@ -91,7 +92,7 @@ namespace MovieReview.Api
                     {
                         Id = 5,
                         Identity = "Anonymouse Actor",
-                        AllowedUseCases = new List<int> { 1 }
+                        AllowedUseCases = new List<int> { 6,7,15,14,2,3 }
 
                     };
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using MovieReview.Application;
 using MovieReview.Application.Commands;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Domain;
@@ -28,6 +29,7 @@ namespace MovieReview.Implementation.Commands
 
         public void Execute(ReviewDto request)
         {
+
             var review = mapper.Map<Review>(request);
 
             validator.ValidateAndThrow(request);

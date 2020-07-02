@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Bogus;
 using Microsoft.AspNetCore.Http;
@@ -23,20 +24,27 @@ namespace MovieReview.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var usersFaker = new Faker<User>();
-
-            usersFaker.RuleFor(x => x.FirstName, f => f.Name.FirstName());
-            usersFaker.RuleFor(x => x.LastName, f => f.Name.LastName());
-            usersFaker.RuleFor(x => x.Username, f => f.Internet.UserName());
-            usersFaker.RuleFor(x => x.Email, f => f.Internet.Email());
-            usersFaker.RuleFor(x => x.Password, f => f.Internet.Password());
-            usersFaker.RuleFor(x => x.IsActive, f => true);
-            usersFaker.RuleFor(x => x.IsDeleted, f => false);
-            usersFaker.RuleFor(x => x.CreatedAt, f => f.Date.Past(5, DateTime.Now));
-            var users = usersFaker.Generate(50);
-            context.Users.AddRange(users);
+            var movies = new Faker<ActorMovie>();
+            //movies.RuleFor(x => x.UserId, f => f.Random.Int(7, 57));
+            //movies.RuleFor(x => x.MovieId, f => f.Random.Int(1, 30));
+            //movies.RuleFor(x => x.Title, f => f.Lorem.Sentence(6));
+            //movies.RuleFor(x => x.Text, f => f.Lorem.Sentences(10));
+            //movies.RuleFor(x => x.MovieRating, f => f.Random.Int(1, 5));
+            //movies.RuleFor(x => x.MovieId, f => f.Random.Int(1, 30));
+            //movies.RuleFor(x => x.GenreId, f => f.Random.Int(101,110));
+            //movies.RuleFor(x => x.FirstName, f => f.Person.FirstName);
+            //movies.RuleFor(x => x.LastName, f => f.Person.LastName);
+            //movies.RuleFor(x => x.ShortBio, f => f.Lorem.Sentence(10));
+            movies.RuleFor(x => x.ActorId, f => f.Random.Int(25, 44));
+            movies.RuleFor(x => x.MovieId, f => f.Random.Int(1, 30));
+            movies.RuleFor(x => x.CharacterName, f => f.Person.FullName);
+            movies.RuleFor(x => x.IsActive, f => true);
+            movies.RuleFor(x => x.IsDeleted, f => false);
+            movies.RuleFor(x => x.CreatedAt, f => f.Date.Past(5, DateTime.Now));
+            var moviesf = movies.Generate(10);
+            context.ActorMovies.AddRange(moviesf);
             context.SaveChanges();
-            return Ok(users);
+            return Ok(moviesf);
         }
 
         // GET: api/Test/5

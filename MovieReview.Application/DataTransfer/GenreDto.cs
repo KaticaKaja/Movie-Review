@@ -8,7 +8,6 @@ namespace MovieReview.Application.DataTransfer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ShortInfo { get; set; }
         public virtual ICollection<MovieGenreDto> GenreMovies { get; set; } = new List<MovieGenreDto>();
     }
 }

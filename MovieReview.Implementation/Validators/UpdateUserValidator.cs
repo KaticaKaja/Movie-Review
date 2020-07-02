@@ -23,7 +23,9 @@ namespace MovieReview.Implementation.Validators
                 .WithMessage("Username is already taken.");
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .EmailAddress()
+                .Must((dto, email) => !context.Users.Any(user => user.Username == email && user.Id != dto.Id))
+                .WithMessage("This email is already taken.");
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .MinimumLength(8);

@@ -26,7 +26,7 @@ namespace MovieReview.Api.Core
             }
             catch (Exception ex)
             {
-                //presreli smo izuzetak i podesavamo sve sto je vec podeseno kad se desi izuzetak
+                
                 httpContext.Response.ContentType = "application/json";
                 object response = new
                 {

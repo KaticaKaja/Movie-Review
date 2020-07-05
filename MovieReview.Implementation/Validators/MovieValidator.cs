@@ -13,9 +13,11 @@ namespace MovieReview.Implementation.Validators
         public MovieValidator(MovieReviewContext context)
         {
             RuleFor(x => x.Title)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Title is required");
             RuleFor(x => x.Duration)
-                .GreaterThan(0);
+                .GreaterThan(0)
+                .WithMessage("Duration must be longer than 0 minutes");
             RuleFor(x => x.Year)
                 .GreaterThan(1887)
                 .WithMessage("First movie was filmed in 1888, not before that");

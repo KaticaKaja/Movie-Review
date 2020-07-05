@@ -13,7 +13,8 @@ namespace MovieReview.Implementation.Validators
         public ReviewValidator(MovieReviewContext context)
         {
             RuleFor(x => x.Title)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Title is required");
             RuleFor(x => x.Text)
                 .NotEmpty()
                 .MaximumLength(300)

@@ -10,5 +10,6 @@ namespace MovieReview.Application.DataTransfer
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ShortBio { get; set; }
+        public IEnumerable<ActorMovieDto> ActorMovies { get; set; } = new List<ActorMovieDto>();
     }
 }

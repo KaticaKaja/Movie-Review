@@ -13,12 +13,16 @@ namespace MovieReview.Implementation.Validators
         public AddUserValidator(MovieReviewContext context)
         {
             RuleFor(x => x.FirstName)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("First name is required");
             RuleFor(x => x.LastName)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Last name is required");
             RuleFor(x => x.Username)
                 .NotEmpty()
+                .WithMessage("Username is required")
                 .MinimumLength(4)
+                .WithMessage("Username must be at least 4 characters long")
                 .Must(x => !context.Users.Any(user => user.Username == x))
                 .WithMessage("Username is already taken.");
             RuleFor(x => x.Email)

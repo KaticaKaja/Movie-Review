@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieReview.Application;
@@ -42,7 +41,6 @@ namespace MovieReview.Api.Controllers
 
         // POST: api/Reviews
         [HttpPost]
-        [Authorize]
         public IActionResult Post([FromBody] ReviewDto dto, [FromServices] IAddReview command)
         {
             dto.UserId = actor.Id;
@@ -52,7 +50,6 @@ namespace MovieReview.Api.Controllers
 
         // PUT: api/Reviews/5
         [HttpPut("{id}")]
-        [Authorize]
         public IActionResult Put(int id, [FromBody] ReviewDto dto, [FromServices] IUpdateReview command)
         {
             dto.Id = id; //prepise se review id
@@ -62,7 +59,6 @@ namespace MovieReview.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        [Authorize]
         public IActionResult Delete(int id, [FromServices] IDeleteReview command)
         {
             executor.ExecuteCommand(command, id);

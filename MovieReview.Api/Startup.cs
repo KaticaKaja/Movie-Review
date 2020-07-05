@@ -93,7 +93,7 @@ namespace MovieReview.Api
                     {
                         Id = 5,
                         Identity = "Anonymouse Actor",
-                        AllowedUseCases = new List<int> { 6,7,15,14,2,3 }
+                        AllowedUseCases = new List<int> { 6,7,15,14,3 }
 
                     };
 

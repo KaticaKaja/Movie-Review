@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieReview.Application;
@@ -42,7 +41,6 @@ namespace MovieReview.Api.Controllers
 
         // POST: api/Movies
         [HttpPost]
-        [Authorize]
         public IActionResult Post([FromBody] MovieDto dto, [FromServices] IAddMovie command)
         {
             executor.ExecuteCommand(command, dto);
@@ -51,7 +49,6 @@ namespace MovieReview.Api.Controllers
 
         // PUT: api/Movies/5
         [HttpPut("{id}")]
-        [Authorize]
         public IActionResult Put(int id, [FromBody] MovieDto dto, [FromServices] IUpdateMovie command)
         {
             dto.Id = id;
@@ -61,7 +58,6 @@ namespace MovieReview.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        [Authorize]
         public IActionResult Delete(int id, [FromServices] IDeleteMovie command)
         {
             executor.ExecuteCommand(command, id);

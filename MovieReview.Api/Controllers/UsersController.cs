@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieReview.Application;
@@ -10,7 +8,6 @@ using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Commands;
 using MovieReview.Application.QueryDto;
 using MovieReview.Application.Queries;
-using MovieReview.EfDataAccess;
 
 namespace MovieReview.Api.Controllers
 {
@@ -29,7 +26,6 @@ namespace MovieReview.Api.Controllers
 
         // GET: api/Users
         [HttpGet]
-        //[Authorize]
         public IActionResult Get([FromQuery] UserSearch search,
             [FromServices] IGetUsersQuery query)
         {
@@ -38,7 +34,6 @@ namespace MovieReview.Api.Controllers
 
 
         // GET: api/Users/5
-        //[Authorize]
         [HttpGet("{id}", Name = "GetUser")]
         public IActionResult Get(int id, [FromServices] IGetOneUserQuery query)
         {
@@ -53,7 +48,6 @@ namespace MovieReview.Api.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [Authorize]
         // PUT: api/Users/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] UserDto dto, [FromServices] IUpdateUser command)
@@ -62,7 +56,6 @@ namespace MovieReview.Api.Controllers
             executor.ExecuteCommand(command, dto);
             return StatusCode(StatusCodes.Status204NoContent);
         }
-        [Authorize]
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id, [FromServices] IDeleteUser command)

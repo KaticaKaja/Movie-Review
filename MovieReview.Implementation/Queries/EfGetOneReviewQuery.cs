@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Queries;
 using MovieReview.EfDataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MovieReview.Implementation.Queries
@@ -25,7 +27,9 @@ namespace MovieReview.Implementation.Queries
 
         public ReviewDto Execute(int id)
         {
-            var reviewFromDb = context.Reviews.Find(id);
+            var reviewsFromDb = context.Reviews.Include(x => x.Movie).Include(x => x.User).AsQueryable();
+
+            var reviewFromDb = reviewsFromDb.Where(x => x.Id == id).FirstOrDefault();
 
             var review = mapper.Map<ReviewDto>(reviewFromDb);
 

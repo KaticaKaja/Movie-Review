@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Queries;
 using MovieReview.Application.QueryDto;
@@ -26,7 +27,7 @@ namespace MovieReview.Implementation.Queries
 
         public PagedResponse<ReviewDto> Execute(ReviewSearch search)
         {
-            var query = _context.Reviews.AsQueryable();
+            var query = _context.Reviews.Include(x=>x.Movie).Include(x=>x.User).AsQueryable();
 
             if (!string.IsNullOrEmpty(search.Title) || !string.IsNullOrWhiteSpace(search.Title)
                 )

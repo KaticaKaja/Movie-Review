@@ -13,33 +13,33 @@ namespace MovieReview.Implementation.Profiles
         public MovieProfile()
         {
             CreateMap<MovieDto, Movie>()
-                .ForMember(dto => dto.MovieActors, opt => opt.MapFrom(m => m.MovieActors.Select(am => new ActorMovie
+                .ForMember(dto => dto.MovieActors, opt => opt.MapFrom(dto => dto.MovieActors.Select(am => new ActorMovie
                 {
                     ActorId = am.ActorId,
                     MovieId = am.MovieId,
                     CharacterName = am.CharacterName
 
                 })))
-                .ForMember(dto => dto.MovieGenres, opt => opt.MapFrom(m => m.MovieGenres.Select(mg => new MovieGenre
+                .ForMember(dto => dto.MovieGenres, opt => opt.MapFrom(dto => dto.MovieGenres.Select(mg => new MovieGenre
                 {
                      GenreId = mg.GenreId,
                      MovieId = mg.MovieId
                 })));
 
             CreateMap<Movie, MovieDto>()
-                .ForMember(m => m.MovieActors, opt => opt.MapFrom(dto => dto.MovieActors.Select(amdto => new ActorMovieDto
+                .ForMember(m => m.MovieActors, opt => opt.MapFrom(m => m.MovieActors.Select(am => new ActorMovieDto
                 {
-                    ActorId = amdto.ActorId,
-                    MovieId = amdto.MovieId,
-                    CharacterName = amdto.CharacterName,
-                    Actor = amdto.Actor.FirstName + " " + amdto.Actor.LastName
+                    ActorId = am.ActorId,
+                    MovieId = am.MovieId,
+                    CharacterName = am.CharacterName,
+                    Actor = am.Actor.FirstName + " " + am.Actor.LastName
 
                 })))
-                .ForMember(m => m.MovieGenres, opt => opt.MapFrom(dto => dto.MovieGenres.Select(mgdto => new MovieGenreDto
+                .ForMember(m => m.MovieGenres, opt => opt.MapFrom(m => m.MovieGenres.Select(mg => new MovieGenreDto
                 {
-                    GenreId = mgdto.GenreId,
-                    MovieId = mgdto.MovieId,
-                    Genre = mgdto.Genre.Name
+                    GenreId = mg.GenreId,
+                    MovieId = mg.MovieId,
+                    Genre = mg.Genre.Name
                 })));
         }
     }

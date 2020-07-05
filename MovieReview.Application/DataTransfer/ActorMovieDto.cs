@@ -10,5 +10,6 @@ namespace MovieReview.Application.DataTransfer
         public int ActorId { get; set; }
         public int MovieId { get; set; }
         public string CharacterName { get; set; }
+        public string Actor { get; set; }
     }
 }

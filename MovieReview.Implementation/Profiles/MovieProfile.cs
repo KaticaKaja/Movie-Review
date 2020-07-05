@@ -31,13 +31,15 @@ namespace MovieReview.Implementation.Profiles
                 {
                     ActorId = amdto.ActorId,
                     MovieId = amdto.MovieId,
-                    CharacterName = amdto.CharacterName
+                    CharacterName = amdto.CharacterName,
+                    Actor = amdto.Actor.FirstName + " " + amdto.Actor.LastName
 
                 })))
                 .ForMember(m => m.MovieGenres, opt => opt.MapFrom(dto => dto.MovieGenres.Select(mgdto => new MovieGenreDto
                 {
                     GenreId = mgdto.GenreId,
-                    MovieId = mgdto.MovieId
+                    MovieId = mgdto.MovieId,
+                    Genre = mgdto.Genre.Name
                 })));
         }
     }

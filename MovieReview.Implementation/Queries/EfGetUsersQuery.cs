@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Queries;
 using MovieReview.Application.QueryDto;
@@ -28,7 +29,7 @@ namespace MovieReview.Implementation.Queries
 
         public PagedResponse<UserDto> Execute(UserSearch search)
         {
-            var query = _context.Users.AsQueryable();
+            var query = _context.Users.Include(x=>x.UserUseCases).AsQueryable();
 
             if (!string.IsNullOrEmpty(search.FirstLastUserName) || !string.IsNullOrWhiteSpace(search.FirstLastUserName)
                 )

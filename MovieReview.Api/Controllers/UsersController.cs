@@ -29,17 +29,17 @@ namespace MovieReview.Api.Controllers
 
         // GET: api/Users
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IActionResult Get([FromQuery] UserSearch search,
-            [FromServices] IGetUsersQuery query) // samo admin
+            [FromServices] IGetUsersQuery query)
         {
             return Ok(executor.ExecuteQuery(query, search));
         }
 
 
         // GET: api/Users/5
-        [Authorize]
-        [HttpGet("{id}", Name = "GetUser")] // admin i taj user
+        //[Authorize]
+        [HttpGet("{id}", Name = "GetUser")]
         public IActionResult Get(int id, [FromServices] IGetOneUserQuery query)
         {
             return Ok(executor.ExecuteQuery(query, id));

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieReview.Application.DataTransfer;
 using MovieReview.Application.Queries;
 using MovieReview.EfDataAccess;
@@ -26,7 +27,8 @@ namespace MovieReview.Implementation.Queries
 
         public UserDto Execute(int id)
         {
-            var userFromDb = context.Users.Find(id);
+            var usersFromDb = context.Users.Include(x => x.UserUseCases).AsQueryable();
+            var userFromDb = usersFromDb.Where(x => x.Id == id).FirstOrDefault();
 
             var user =  mapper.Map<UserDto>(userFromDb);
 

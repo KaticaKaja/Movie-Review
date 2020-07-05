@@ -49,8 +49,16 @@ namespace MovieReview.Api
             services.AddTransient<TokenValidator>();
             services.AddTransient<MovieValidator>();
             services.AddTransient<ReviewValidator>();
+            services.AddTransient<GenreValidator>();
             #endregion
 
+            #region Genre
+            services.AddTransient<IAddGenre, EfAddGenre>();
+            services.AddTransient<IUpdateGenre, EfUpdateGenre>();
+            services.AddTransient<IDeleteGenre, EfDeleteGenre>();
+            services.AddTransient<IGetGenresQuery, EfGetGenresQuery>();
+            services.AddTransient<IGetOneGenreQuery, EfGetOneGenreQuery>();
+            #endregion
             #region User
             services.AddTransient<IAddUser, EfAddUser>();
             services.AddTransient<IUpdateUser, EfUpdateUser>();

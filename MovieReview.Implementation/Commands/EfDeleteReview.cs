@@ -29,7 +29,6 @@ namespace MovieReview.Implementation.Commands
                 throw new EntityNotFoundException(id, typeof(Review));
             }
 
-            //context.Users.Remove(user);
             review.IsDeleted = true;
             context.SaveChanges();
         }

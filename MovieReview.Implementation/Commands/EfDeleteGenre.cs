@@ -8,28 +8,28 @@ using System.Text;
 
 namespace MovieReview.Implementation.Commands
 {
-    public class EfDeleteMovie : IDeleteMovie
+    public class EfDeleteGenre : IDeleteGenre
     {
         private readonly MovieReviewContext context;
 
-        public EfDeleteMovie(MovieReviewContext context)
+        public EfDeleteGenre(MovieReviewContext context)
         {
             this.context = context;
         }
-        public int Id => 10;
+        public int Id => 18;
 
-        public string Name => "Delete Movie";
+        public string Name => "Delete Genre";
 
         public void Execute(int id)
         {
-            var movie = context.Movies.Find(id);
+            var genre = context.Genres.Find(id);
 
-            if (movie == null)
+            if (genre == null)
             {
-                throw new EntityNotFoundException(id, typeof(Movie));
+                throw new EntityNotFoundException(id, typeof(Genre));
             }
 
-            movie.IsDeleted = true;
+            genre.IsDeleted = true;
             context.SaveChanges();
         }
     }

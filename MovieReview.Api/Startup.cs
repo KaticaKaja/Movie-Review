@@ -39,6 +39,7 @@ namespace MovieReview.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(EfAddMovie).Assembly);
+            //services.AddAutoMapper(typeof(EfGetMoviesQuery).Assembly);
             services.AddTransient<MovieReviewContext>();
             services.AddTransient<UseCaseExecutor>();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,16 @@ namespace MovieReview.Api.Controllers
         [HttpPost]
         public void Post([FromForm] UploadDto dto)
         {
+            var guid = Guid.NewGuid();
+            var extension = Path.GetExtension(dto.Image.FileName);
+            var newName = guid + extension;
+            var path = Path.Combine("wwwroot", "Images", newName);
+
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                dto.Image.CopyTo(fileStream);
+            }
+
         }
     }
 

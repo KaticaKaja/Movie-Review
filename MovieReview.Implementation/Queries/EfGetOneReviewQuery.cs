@@ -25,7 +25,7 @@ namespace MovieReview.Implementation.Queries
 
         public ReviewDto Execute(int id)
         {
-            var reviewFromDb = context.Users.Find(id);
+            var reviewFromDb = context.Reviews.Find(id);
 
             var review = mapper.Map<ReviewDto>(reviewFromDb);
 

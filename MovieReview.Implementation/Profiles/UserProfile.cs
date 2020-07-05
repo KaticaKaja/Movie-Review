@@ -13,7 +13,7 @@ namespace MovieReview.Implementation.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDto>()
+            CreateMap<UserDto, User>()
                 .ForMember(dto => dto.UserUseCases, opt => opt.MapFrom(u => u.UserUseCases.Select(uuc => new UserUseCase
                 {
                     Id = uuc.Id,
@@ -21,7 +21,7 @@ namespace MovieReview.Implementation.Profiles
                     UserId = uuc.UserId
                 })));
 
-            CreateMap<UserDto, User>()
+            CreateMap<User, UserDto>()
                 .ForMember(u => u.UserUseCases, opt => opt.MapFrom(dto => dto.UserUseCases.Select(uucdto => new UserUseCaseDto
                 {
                     Id = uucdto.Id,

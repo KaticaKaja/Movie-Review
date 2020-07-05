@@ -28,7 +28,7 @@ namespace MovieReview.Implementation.Queries
 
         public PagedResponse<MovieDto> Execute(MovieSearch search) //title, year, duration
         {
-            var query = _context.Movies.AsQueryable();
+            var query = _context.Movies.Include(x => x.MovieActors).ThenInclude(ma => ma.Actor).Include(x => x.MovieGenres).ThenInclude(mg => mg.Genre).AsQueryable();
 
             if (!string.IsNullOrEmpty(search.Title) || !string.IsNullOrWhiteSpace(search.Title)
                 )
@@ -51,8 +51,6 @@ namespace MovieReview.Implementation.Queries
             {
                 query = query.Where(x => x.MovieGenres.Any(mg => (mg.Genre.Name).ToLower().Contains(search.Genre.ToLower())));
             }
-            query.Include("ActorMovies");
-            query.Include("MovieGenres");
             var skipCount = search.PerPage * (search.Page - 1);
 
             var reponse = new PagedResponse<MovieDto>

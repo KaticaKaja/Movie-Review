@@ -12,7 +12,7 @@ namespace MovieReview.Implementation.Profiles
     {
         public MovieProfile()
         {
-            CreateMap<Movie, MovieDto>()
+            CreateMap<MovieDto, Movie>()
                 .ForMember(dto => dto.MovieActors, opt => opt.MapFrom(m => m.MovieActors.Select(am => new ActorMovie
                 {
                     ActorId = am.ActorId,
@@ -26,7 +26,7 @@ namespace MovieReview.Implementation.Profiles
                      MovieId = mg.MovieId
                 })));
 
-            CreateMap<MovieDto, Movie>()
+            CreateMap<Movie, MovieDto>()
                 .ForMember(m => m.MovieActors, opt => opt.MapFrom(dto => dto.MovieActors.Select(amdto => new ActorMovieDto
                 {
                     ActorId = amdto.ActorId,

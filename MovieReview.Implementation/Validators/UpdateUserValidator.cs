@@ -24,7 +24,7 @@ namespace MovieReview.Implementation.Validators
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .EmailAddress()
-                .Must((dto, email) => !context.Users.Any(user => user.Username == email && user.Id != dto.Id))
+                .Must((dto, email) => !context.Users.Any(user => user.Email == email && user.Id != dto.Id))
                 .WithMessage("This email is already taken.");
             RuleFor(x => x.Password)
                 .NotEmpty()

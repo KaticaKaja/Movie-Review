@@ -84,5 +84,5 @@ prikaz ili za brisanje. Šifre su 12345678 za oba korisnika.
 
 Dijagram baze:
 
-![dijagram baze](http://url/to/img.png)
+![dijagram baze](https://github.com/KaticaKaja/Movie-Review/blob/master/baza.png)
 

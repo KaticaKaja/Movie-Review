@@ -1,68 +1,46 @@
 # Movie-Review
 asp.net core c# project
+__DOKUMENTACIJA__
+
+> Katica Ranković 6/17
+
+> Visoka škola strukovnih studija za informacione i komunikacione tehnologije
+
+__Sadržaj__
+
+1. Funkcionalnosti projekta
+2. Tehnički opis
+3. Opis
+4. Baza podataka
 
 
-Visoka škola strukovnih studija za informacione i komunikacione tehnologije
+Movie Review
 
-DOKUMENTACIJA
+1. Funkcionalnosti :
 
-Katica Ranković 6/17
+* Registracija, login
 
-<https://github.com/KaticaKaja>
+* Pretraga, paginacija, filtriranje
 
-1
+* Crud operacije sa svim entitetima
 
+* Ograničen pristup sadržaju
 
+* Mogućnost slanja e-maila
 
+* Mogućnost upload-a fajla
+---
+ &nbsp;
 
-
-Visoka škola strukovnih studija za informacione i komunikacione tehnologije
-
-Sadržaj
-
-Table of Contents
-
-[1.](#br3)[ ](#br3)[Opis](#br3)[ ](#br3)[projekta](#br3)[ ](#br3)[–](#br3)[ ](#br3)[Movie](#br3)[ ](#br3)[Review](#br3)[ ](#br3)[..........................................................................................................3](#br3)
-
-[Funkcionalnosti](#br3)[ ](#br3)[:...................................................................................................................................3](#br3)
-
-[Opis](#br3)[ ](#br3)[\[tehnički\]](#br3)[ ](#br3)[:](#br3)[ ](#br3)[.....................................................................................................................................3](#br3)
-
-[Opis](#br3)[ ](#br3)[:](#br3)[ ](#br3)[.....................................................................................................................................................3](#br3)
-
-[Dodatne](#br3)[ ](#br3)[informacije:](#br3)[ ](#br3)[............................................................................................................................3](#br3)
-
-[Dijagram](#br3)[ ](#br3)[baze:](#br3)[ ](#br3)[......................................................................................................................................3](#br3)
-
-2
-
-
-
-
-
-Visoka škola strukovnih studija za informacione i komunikacione tehnologije
-
-1. Opis projekta – Movie Review
-
-Funkcionalnosti :
-
-Registracija, login
-
-Pretraga, paginacija, filtriranje
-
-Crud operacije sa svim entitetima
-
-Ograničen pristup sadržaju
-
-Opis [tehnički] :
+2. Opis [tehnički] :
 
 Korisnici mogu da pretražuju sve entitete, ali samo autentifikovani mogu da dodaju ‘’review’’
 
-na određeni film I da ga ocene. Samo npr. administratori (ili kako god koncipiran sistem bio) mogu da
+na određeni film I da ga ocene. Samo npr. administratori (tj. user-i sa neophodnim privilegijama) mogu da imaju kompletnu kontrolu nad sadržajem (crud nad svim entitetima).
 
-imaju kompletnu kontrolu nad sadržajem (crud nad svim entitetima).
+ &nbsp;
 
-Opis :
+3. Opis :
 
 Korisnici imaju opciju login-a, registracije. Takođe mogu pretraživati filmove po godini,
 
@@ -72,7 +50,7 @@ utiska, filmu o kojem je kao I po korisnikovom username-u I samoj oceni. Kada se
 
 mogu dodati svoj utisak o određenom filmu I ostaviti ocenu za taj film.
 
-Dodatne informacije:
+__Dodatne informacije:__
 
 ‘’Admin’’ I ‘’Žika’’ korisnici se mogu koristiti za proveru, ostali korisnici su dodati faker-om I
 
@@ -80,9 +58,9 @@ Dodatne informacije:
 
 prikaz ili za brisanje. Šifre su 12345678 za oba korisnika.
 
-3
+ &nbsp;
 
-Dijagram baze:
+4. Dijagram baze:
 
 ![dijagram baze](https://github.com/KaticaKaja/Movie-Review/blob/master/baza.png)
 
